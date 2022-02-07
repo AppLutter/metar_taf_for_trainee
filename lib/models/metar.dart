@@ -2,37 +2,39 @@ import 'package:equatable/equatable.dart';
 
 class Metar extends Equatable {
   final String icaoCode;
-  final String airPortName;
-  final String metar;
   final String metarMsg;
-  bool isExpaneded;
+  bool isExpanded;
 
   Metar({
-    required this.metarMsg,
     required this.icaoCode,
-    required this.airPortName,
-    required this.metar,
-    this.isExpaneded = false,
+    required this.metarMsg,
+    this.isExpanded = false,
   });
 
-  factory Metar.initial() => Metar(
-        metarMsg: '',
-        icaoCode: '',
-        airPortName: '',
-        metar: '',
-      );
+  factory Metar.initial() => Metar(icaoCode: '', metarMsg: '');
 
   factory Metar.fromJson(Map<String, dynamic> json) {
     final consolidatedMetar = json['iwxxm:METAR']['iwxxm:extension']['msgText'];
 
     return Metar(
+      icaoCode: consolidatedMetar.toString().substring(6, 9),
       metarMsg: consolidatedMetar.toString(),
     );
   }
 
   @override
-  List<Object> get props => [metarMsg, icaoCode, airPortName, metar];
+  List<Object> get props => [metarMsg];
 
   @override
   bool? get stringify => true;
+
+  Metar copyWith({
+    String? icaoCode,
+    String? metarMsg,
+  }) {
+    return Metar(
+      icaoCode: icaoCode ?? this.icaoCode,
+      metarMsg: metarMsg ?? this.metarMsg,
+    );
+  }
 }

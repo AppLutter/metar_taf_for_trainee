@@ -1,8 +1,7 @@
-import 'package:air_weather/models/airport.dart';
+import 'package:air_weather/pages/weather_page.dart';
+import 'package:air_weather/providers/airport/airport_list_provider.dart';
 import 'package:flutter/material.dart';
-import 'services/metar_api_services.dart';
-
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,44 +12,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //  MultiProvider(
+    // providers: [
+    //   ChangeNotifierProvider<AirportListProvider>(
+    //     create: (context) => AirportListProvider(),
+    //   )
+    // ],
     return MaterialApp(
       title: 'Airport Weather Notification',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: WeatherPage(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, }) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-final List<Airport> _airport = 
-
-  final tafApiServices =
-      MetarApiServices(httpClient: http.Client(), airPortName: 'RKSI');
-
-  @override
-  void initState() {
-    tafApiServices.getMetar();
-    super.initState();
-  }
-
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Metar'),
-      ),
-      body: SingleChildScrollView(child: Container(child: ,),)
-    );
+    // );
   }
 }

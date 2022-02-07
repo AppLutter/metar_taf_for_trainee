@@ -9,14 +9,7 @@ import 'package:air_weather/services/http_error_handler.dart';
 import 'package:xml2json/xml2json.dart';
 
 class MetarApiServices {
-  final http.Client httpClient;
-  final String airPortName;
-  MetarApiServices({
-    required this.httpClient,
-    required this.airPortName,
-  });
-
-  Future<Metar> getMetar() async {
+  Future<Metar> getMetar(String airPortName) async {
     final Uri uri = Uri.parse('${kHost}=${airPortName}');
 
     try {
@@ -31,12 +24,10 @@ class MetarApiServices {
       final jsonData = Xml2JsonData.toParker();
       final metarJson = convert.jsonDecode(jsonData);
 
-
       final Metar metar = Metar.fromJson(metarJson);
 
       return metar;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

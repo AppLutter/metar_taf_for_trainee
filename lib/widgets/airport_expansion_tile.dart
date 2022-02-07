@@ -1,9 +1,10 @@
-import 'package:air_weather/models/airport.dart';
+import 'package:air_weather/models/metar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AirportExpansionTile extends StatefulWidget {
-  AirportExpansionTile({required this.list, Key? key}) : super(key: key);
-  final List<Airport> list;
+  AirportExpansionTile({ Key? key})
+      : super(key: key);
 
   @override
   _AirportExpansionTileState createState() => _AirportExpansionTileState();
@@ -15,21 +16,22 @@ class _AirportExpansionTileState extends State<AirportExpansionTile> {
     return ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
           setState(() {
-            widget.list[index].isExpaneded = !isExpanded;
+            context.watch
+            widget.airportListState.metars[index].isExpanded = !isExpanded;
           });
         },
-        children: widget.list.map<ExpansionPanel>(
-          (Airport airport) {
+        children: widget.airportListState.metars.map<ExpansionPanel>(
+          (Metar metar) {
             return ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
-                  title: Text(airport.airPortName),
+                  title: Text('${metar.icaoCode}'),
                 );
               },
               body: ListTile(
-                title: Text(airport.metar),
+                title: Text('${metar.metarMsg}'),
               ),
-              isExpanded: airport.isExpaneded,
+              isExpanded: metar.isExpanded,
             );
           },
         ).toList());
