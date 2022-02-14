@@ -1,34 +1,26 @@
-import 'dart:convert' as convert;
-
 import 'package:http/http.dart' as http;
 
 import 'package:air_weather/constants/constants.dart';
 import 'package:air_weather/models/metar.dart';
 import 'package:air_weather/services/http_error_handler.dart';
 
-import 'package:xml2json/xml2json.dart';
+import 'package:xml/xml.dart';
 
-class MetarApiServices {
-  Future<Metar> getMetar(String airPortName) async {
-    final Uri uri = Uri.parse('${kHost}=${airPortName}');
+Future<Metar> fetchMetar(String icaoCode) async {
+  final Uri uri = Uri.parse('${kMetarUrl}=${icaoCode}');
+  XmlDocument? xmlData;
 
-    try {
-      final http.Response response = await http.get(uri);
+  try {
+    final http.Response response = await http.get(uri);
 
-      if (response.statusCode != 200) {
-        throw Exception(httpErrorHandler(response));
-      }
-
-      final getXmlData = response.body;
-      final Xml2JsonData = Xml2Json()..parse(getXmlData);
-      final jsonData = Xml2JsonData.toParker();
-      final metarJson = convert.jsonDecode(jsonData);
-
-      final Metar metar = Metar.fromJson(metarJson);
-
-      return metar;
-    } catch (e) {
-      rethrow;
+    if (response.statusCode != 200) {
+      throw Exception(httpErrorHandler(response));
     }
+    xmlData = XmlDocument.parse(response.body);
+    final Metar metar = Metar.fromXml(xmlData);
+
+    return metar;
+  } catch (e) {
+    rethrow;
   }
 }

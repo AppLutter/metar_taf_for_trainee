@@ -1,4 +1,6 @@
-const String kHost = 'http://amoapi.kma.go.kr/amoApi/iwxxm3/metar?icao';
+const String kMetarUrl = 'http://amoapi.kma.go.kr/amoApi/iwxxm3/metar?icao';
+const String kTafUrl = 'http://amoapi.kma.go.kr/amoApi/iwxxm3/taf?icao';
+
 const List<String> kIcaoCode = [
   'RKJB',
   'RKJY',
@@ -8,4 +10,13 @@ const List<String> kIcaoCode = [
   'RKJK',
   'RKTN',
 ];
-// 무안, 여수, 청주, 포항, 양양, 군산, 대구
+
+const List<String> kAirportName = [
+  '무안공항',
+  '여수공항',
+  '청주공항',
+  '포항공항',
+  '양양공항',
+  '군산공항',
+  '대구공항',
+];

@@ -1,40 +1,28 @@
-import 'package:equatable/equatable.dart';
+import 'package:xml/xml.dart';
 
-class Metar extends Equatable {
-  final String icaoCode;
+class Metar {
   final String metarMsg;
-  bool isExpanded;
 
   Metar({
-    required this.icaoCode,
     required this.metarMsg,
-    this.isExpanded = false,
   });
 
-  factory Metar.initial() => Metar(icaoCode: '', metarMsg: '');
+  factory Metar.initial() => Metar(metarMsg: '');
 
-  factory Metar.fromJson(Map<String, dynamic> json) {
-    final consolidatedMetar = json['iwxxm:METAR']['iwxxm:extension']['msgText'];
-
+  factory Metar.fromXml(XmlDocument xml) {
     return Metar(
-      icaoCode: consolidatedMetar.toString().substring(6, 9),
-      metarMsg: consolidatedMetar.toString(),
-    );
-  }
-
-  @override
-  List<Object> get props => [metarMsg];
-
-  @override
-  bool? get stringify => true;
-
-  Metar copyWith({
-    String? icaoCode,
-    String? metarMsg,
-  }) {
-    return Metar(
-      icaoCode: icaoCode ?? this.icaoCode,
-      metarMsg: metarMsg ?? this.metarMsg,
+      metarMsg: xml
+          .findAllElements('msgText')
+          .toString()
+          .substring(16)
+          .replaceAll('=</msgText>)', '')
+          .replaceAll('= </msgText>)', '')
+          .replaceAll('\n', '')
+          .replaceAll('  ', '')
+          .replaceAll('   ', '')
+          .replaceAll('    ', '')
+          .replaceFirst(' ', '\n')
+          .trim(),
     );
   }
 }
