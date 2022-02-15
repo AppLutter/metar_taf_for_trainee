@@ -17,7 +17,7 @@ dependencies:
   http: ^0.13.4
   xml: ^5.3.1
   webview_flutter: ^3.0.0
-  web_scraper: ^0.1.4
+  flutter_osm_plugin: ^0.30.1+2
 
 
 dev_dependencies:

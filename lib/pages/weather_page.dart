@@ -1,8 +1,7 @@
 import 'package:air_weather/widgets/metar_taf_listview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'dart:io';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({Key? key}) : super(key: key);
@@ -21,30 +20,62 @@ class _WeatherPageState extends State<WeatherPage> {
           '기상알림',
           style: TextStyle(fontSize: 30.0),
         ),
-        actions: [],
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: Icon(Icons.refresh),
+          )
+        ],
       ),
-      body: MetarTafListView(),
+      body: AirmetView(),
     );
   }
 }
 
-class WebViewExample extends StatefulWidget {
+class AirmetView extends StatefulWidget {
   @override
-  WebViewExampleState createState() => WebViewExampleState();
+  AirmetViewState createState() => AirmetViewState();
 }
 
-class WebViewExampleState extends State<WebViewExample> {
-  @override
-  void initState() {
-    super.initState();
-    // Enable virtual display.
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
-  }
+class AirmetViewState extends State<AirmetView> {
+  MapController mapController = MapController(
+      initMapWithUserPosition: false,
+      initPosition: GeoPoint(latitude: 36.03428, longitude: 127.43402));
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: 'https://global.amo.go.kr/comis4/uis/common/index_acwis.do#',
+    return OSMFlutter(
+      showContributorBadgeForOSM: true,
+      controller: mapController,
+      trackMyPosition: false,
+      initZoom: 6.5,
+      stepZoom: 1.0,
+      roadConfiguration: RoadConfiguration(
+        startIcon: MarkerIcon(
+          icon: Icon(
+            Icons.person,
+            size: 64,
+            color: Colors.brown,
+          ),
+        ),
+        roadColor: Colors.yellowAccent,
+      ),
+      markerOption: MarkerOption(
+          defaultMarker: MarkerIcon(
+        icon: Icon(
+          Icons.person_pin_circle,
+          color: Colors.blue,
+          size: 56,
+        ),
+      )),
     );
+  }
+
+  @override
+  void dispose() {
+    mapController.dispose();
+    super.dispose();
   }
 }

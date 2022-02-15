@@ -17,6 +17,8 @@ Future<Metar> fetchMetar(String icaoCode) async {
       throw Exception(httpErrorHandler(response));
     }
     xmlData = XmlDocument.parse(response.body);
+    print(xmlData.getElement('msgText'));
+
     final Metar metar = Metar.fromXml(xmlData);
 
     return metar;

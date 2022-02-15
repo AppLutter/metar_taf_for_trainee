@@ -9,9 +9,9 @@ class Metar {
 
   factory Metar.initial() => Metar(metarMsg: '');
 
-  factory Metar.fromXml(XmlDocument xml) {
+  factory Metar.fromXml(XmlDocument element) {
     return Metar(
-      metarMsg: xml
+      metarMsg: element
           .findAllElements('msgText')
           .toString()
           .substring(16)

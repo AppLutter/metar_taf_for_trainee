@@ -1,6 +1,5 @@
 import 'package:air_weather/models/metar.dart';
 import 'package:air_weather/models/taf.dart';
-import 'package:air_weather/services/airmet_load.dart';
 import 'package:air_weather/services/metar_api_services.dart';
 import 'package:air_weather/services/taf_api_services.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class _WeatherExpansionState extends State<WeatherExpansion> {
 
   @override
   void initState() {
-    airmetLoad();
     super.initState();
   }
 
