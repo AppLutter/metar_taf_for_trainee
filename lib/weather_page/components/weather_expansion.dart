@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:air_weather/models/metar.dart';
 import 'package:air_weather/models/taf.dart';
 import 'package:air_weather/services/metar_api_services.dart';
 import 'package:air_weather/services/taf_api_services.dart';
-import 'package:flutter/material.dart';
 
 class WeatherExpansion extends StatefulWidget {
   WeatherExpansion({
@@ -36,23 +37,13 @@ class _WeatherExpansionState extends State<WeatherExpansion> {
       },
       children: [
         ExpansionPanel(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Color(0xFFFF8CFF),
           isExpanded: _isExpanded,
           headerBuilder: (context, isExpanded) {
             return Center(
               child: Container(
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.only(
-                //     topRight: Radius.circular(25),
-                //   ),
-                // ),
-                child: Text(
-                  widget.airportName,
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                ),
+                child: Text(widget.airportName,
+                    style: Theme.of(context).textTheme.bodyText1),
               ),
             );
           },
@@ -62,6 +53,7 @@ class _WeatherExpansionState extends State<WeatherExpansion> {
             child: Column(
               children: [
                 Container(
+                  color: Color(0xFFB21EF1),
                   child: TabBar(
                     labelStyle: TextStyle(
                       fontSize: 20.0,
@@ -74,6 +66,7 @@ class _WeatherExpansionState extends State<WeatherExpansion> {
                   ),
                 ),
                 Container(
+                  color: Color(0xFFFF8CFF),
                   margin: const EdgeInsets.all(20.0),
                   height: 350,
                   width: 400,

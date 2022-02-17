@@ -1,6 +1,7 @@
-import 'package:air_weather/constants/constants.dart';
-import 'package:air_weather/widgets/weather_expansion.dart';
 import 'package:flutter/material.dart';
+
+import 'package:air_weather/constants/constants.dart';
+import 'package:air_weather/weather_page/components/weather_expansion.dart';
 
 class MetarTafListView extends StatelessWidget {
   const MetarTafListView({

@@ -9,9 +9,9 @@ class Taf {
 
   factory Taf.initial() => Taf(tafMsg: '');
 
-  factory Taf.fromXml(XmlDocument xml) {
+  factory Taf.fromXml(XmlDocument element) {
     return Taf(
-      tafMsg: xml
+      tafMsg: element
           .findAllElements('msgText')
           .toString()
           .substring(13)
