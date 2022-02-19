@@ -42,8 +42,10 @@ class _WeatherExpansionState extends State<WeatherExpansion> {
           headerBuilder: (context, isExpanded) {
             return Center(
               child: Container(
-                child: Text(widget.airportName,
-                    style: Theme.of(context).textTheme.bodyText1),
+                child: Text(
+                  widget.airportName,
+                  style: Theme.of(context).textTheme.bodyText1
+                ),
               ),
             );
           },
